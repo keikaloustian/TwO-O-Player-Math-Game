@@ -8,8 +8,10 @@ require './player'
 
 # question = Question.new
 # p question
+# p question.correct_answer
 # puts question.prompt
-# p question.answer_correct?(9)
+# answer = $stdin.gets.chomp
+# p question.answer_correct?(answer)
 
 game = Game.new
 game.start
