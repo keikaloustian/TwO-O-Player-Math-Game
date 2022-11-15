@@ -7,28 +7,35 @@ class Game
     @current_player = @P1
   end
 
-  def start
+  def run_game
 
-    
     while (@P1.lives > 0 && @P2.lives > 0)
+      # Ask current player question and capture answer
       question = Question.new
-      puts "#{@current_player.name}, #{question.prompt}"
+      puts "---------------------"
+      print "#{@current_player.name}, #{question.prompt} "
       answer = $stdin.gets.chomp
-      p question.answer_correct?(answer)
 
+      # Reveal result, deduct if incorrect
+      puts question.answer_correct?(answer) ? 'Correct!' : 'Incorrect!'
       @current_player.lives -=1 unless question.answer_correct?(answer)
-
-
-      @P2.lives -= 1
-      p "P1 has #{@P1.lives}"
-      p "P2 has #{@P2.lives}"
+    
+      # Display remaining lives
+      puts "P1: " + "❤️" * @P1.lives + "   P2: " + "❤️" * @P2.lives
       
+      # Switch player
+      @current_player = @current_player == @P1 ? @P2 : @P1
 
     end
 
+    end_game
+
   end
 
-
-
+  def end_game
+     # Display final result
+    puts "---------------------"
+    puts "#{@current_player.name} is the winner with " + "❤️" * @current_player.lives + " remaining!"
+  end
 
 end
